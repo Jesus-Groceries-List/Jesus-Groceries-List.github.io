@@ -11,14 +11,13 @@ input {
     text-overflow: ellipsis;
 }
 
-button > i, div > i {
+div > i {
     margin-right: 4px;
 }
 
 button,
 input {
     width: 100%;
-    
 }
 
 h3 {
