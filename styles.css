@@ -1,0 +1,60 @@
+body,
+input,
+button {
+    font-family: "Silkscreen", sans-serif;
+    font-size: 16px;
+}
+
+input {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+button > i, div > i {
+    margin-right: 4px;
+}
+
+button,
+input {
+    width: 100%;
+    
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+.language-options {
+    margin-left: 24px;
+}
+
+.product-input {
+    flex: 1;
+}
+
+.quantity-input {
+    width: 80px;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.card-body {
+    padding-left: 1rem;
+    padding: .5rem;
+}
+
+.actions>button {
+    width: 50%;
+}
+
+.mt-05 {
+    margin-top: .5rem;
+}
+
+.translate-box {
+    margin-left:10px;
+}

@@ -1,138 +1,146 @@
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="dark">
+<html data-bs-theme="dark">
 
 <head>
+
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <title>Groceries List</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 
-    <style>
-        body, input, button {
-            font-family: "Silkscreen", sans-serif;
-            font-size: 16px;
-        }
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/fonts.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" />
+    <link href="lib/bootstrap-icons.min.css" rel="stylesheet">
 
-        h1 {
-            font-size: 2rem;
-        }
-
-        h3 {
-            font-size: 1rem;
-        }
-
-        .product-input {
-            flex: 1;
-        }
-
-        .quantity-input {
-            width: 80px;
-        }
-
-        .completed {
-            text-decoration: line-through;
-            opacity: 0.5;
-        }
-    </style>
 </head>
 
 <body class="py-4">
 
     <div class="container max-width-md" style="max-width: 600px;">
-        <header class="text-center mb-4">
-            <h1>Groceries List</h1>
-            <h3 class="text-secondary">By Jesús Ameller</h3>
-        </header>
 
-        <form id="todo-form" class="d-flex gap-2 mb-4">
-            <i class="bi bi-play-fill fs-3 align-self-center"></i>
-            <input type="text" id="product-name" class="form-control product-input" placeholder="Product" required>
-            <input type="number" id="product-qty" class="form-control quantity-input" min="1" value="1" required>
-            <button type="submit" class="btn btn-success px-4">Add</button>
-        </form>
+        <div class="main-section">
 
-        <ul id="product-list" class="list-group"></ul>
+            <header class="text-center mb-4">
+                <h2 class="h1" translate="main_title">Groceries List</h2>
+                <h3 class="text-secondary" translate="by_author">By Jesús Ameller</h3>
+            </header>
+
+            <form id="todo-form" class="needs-validation" novalidate>
+                <div class="d-flex gap-2">
+                    <div class="flex-grow-1">
+                        <input type="text" id="product-name" class="form-control product-input" placeholder="Product"
+                            translate="product" required>
+                        <div class="invalid-feedback">
+                            Ingresa un nombre de producto.
+                        </div>
+                    </div>
+                    <div>
+                        <input type="number" id="product-qty" class="form-control quantity-input" min="1" value="1"
+                            required>
+                        <div class="invalid-feedback">
+                            Mínimo 1.
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mt-05">
+                    <button type="submit" class="btn btn-success" translate="add">Add</button>
+                </div>
+                <div class="actions d-flex gap-2 mt-05 mb-4">
+                    <button type="button" class="btn btn-primary configuration" translate="configuration">
+                        Configuration
+                    </button>
+                    <button type="button" class="btn btn-primary share" translate="share">
+                        Share
+                    </button>
+                </div>
+            </form>
+
+            <ul id="product-list" class="list-group"></ul>
+        </div>
+
+        <div class="settings-section" style="display: none;">
+
+            <header class="text-center mb-4">
+                <h2 class="h1" translate="configuration">Settings</h2>
+            </header>
+
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="translate-box">
+                                <i class="bi bi-translate"></i>
+                                <span translate="language">Language</span>
+                            </div>
+                            <a class="btn" data-bs-toggle="collapse" href=".language-options" onclick="toogleSection()">
+                                <i class="bi bi-chevron-down"></i>
+                                <i class="bi bi-chevron-up" style="display: none;"></i>
+                            </a>
+                        </div>
+                        <div class="collapse language-options">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languageInput" id="language-en"
+                                    value="en" checked>
+                                <label class="form-check-label" translate="english">
+                                    English
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languageInput" id="language-es"
+                                    value="es">
+                                <label class="form-check-label" translate="spanish">
+                                    Spanish
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languageInput" id="language-ca"
+                                    value="ca">
+                                <label class="form-check-label" translate="catalan">
+                                    Catalan
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-success mt-05" translate="save" onclick="saveConfiguration()">
+                Save
+            </button>
+        </div>
+
+        <div class="share-section" style="display: none;">
+
+            <header class="text-center mb-4">
+                <h2 class="h1" translate="share">Share</h2>
+                <h3 class="text-secondary" translate="link">Share your list!</h3>
+            </header>
+
+            <input type="text" name="share">
+            <button class="btn btn-success mt-05" translate="copy">Copy</button>
+
+        </div>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3 top-0 start-50 translate-middle-x"
+        style="z-index: 1100;">
+        <div id="app-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div id="toast-body" class="toast-body"></div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        const form = document.getElementById("todo-form");
-        const listE = document.getElementById("product-list");
-        const inputName = document.getElementById("product-name");
-        const inputQty = document.getElementById("product-qty");
+    <script src="lib/bootstrap.bundle.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/toast.js"></script>
+    <script src="js/navigator.js"></script>
+    <script src="js/traductions.js"></script>
+    <script src="js/configuration.js"></script>
+    <script src="app.js"></script>
 
-        let products = JSON.parse(localStorage.getItem("products")) || [];
-
-        const save = () => {
-            localStorage.setItem("products", JSON.stringify(products));
-        };
-
-        const render = () => {
-            listE.innerHTML = "";
-            products.forEach((product, index) => {
-                const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center gap-2";
-                
-                const span = document.createElement("span");
-                span.textContent = `${product.name} (x${product.quantity})`;
-                span.className = `flex-grow-1 ${product.completed ? "completed" : ""}`;
-                
-                const toggleBtn = document.createElement("button");
-                toggleBtn.className = `btn btn-sm ${product.completed ? "btn-secondary" : "btn-success"}`;
-                toggleBtn.textContent = "✔";
-                toggleBtn.onclick = () => toggleProduct(index);
-
-                const deleteBtn = document.createElement("button");
-                deleteBtn.className = "btn btn-danger btn-sm";
-                deleteBtn.textContent = `✗`;
-                deleteBtn.onclick = () => removeProduct(index);
-
-                const actionsDiv = document.createElement("div");
-                actionsDiv.className = "d-flex gap-2";
-                actionsDiv.appendChild(toggleBtn);
-                actionsDiv.appendChild(deleteBtn);
-
-                li.appendChild(span);
-                li.appendChild(actionsDiv);
-                listE.appendChild(li);
-            });
-        };
-
-        const addProduct = (e) => {
-            e.preventDefault();
-            const name = inputName.value.trim();
-            const quantity = parseInt(inputQty.value, 10);
-
-            if (!name || quantity < 1) return;
-
-            products.push({ name, quantity, completed: false });
-            save();
-            render();
-
-            inputName.value = "";
-            inputQty.value = "1";
-            inputName.focus();
-        };
-
-        const toggleProduct = (index) => {
-            products[index].completed = !products[index].completed;
-            save();
-            render();
-        };
-
-        const removeProduct = (index) => {
-            products.splice(index, 1);
-            save();
-            render();
-        };
-
-        form.addEventListener("submit", addProduct);
-        render();
-    </script>
 </body>
 
 </html>
